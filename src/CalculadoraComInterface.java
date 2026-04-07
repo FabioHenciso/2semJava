@@ -1,3 +1,5 @@
+import org.w3c.dom.ls.LSOutput;
+
 import javax.swing.*;
 import java.awt.event.ActionListener;
 
@@ -5,7 +7,18 @@ public class CalculadoraComInterface {
     public static void main(String[] args){
         JFrame janela = new JFrame();
 
-         //Tamanho da janela
+
+        var ref = new Object() {
+            double number1;
+
+            double number2;
+            String oper;
+            double resultado = 0;
+        };
+
+
+
+        //Tamanho da janela
         janela.setBounds(60, 100, 400, 580);
         janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         janela.setLayout(null);
@@ -28,7 +41,7 @@ public class CalculadoraComInterface {
         nu0.setBounds(90,460,90,80);
         janela.add(nu0);
 
-        JButton virg = new JButton(",");
+        JButton virg = new JButton(".");
         virg.setBounds(180,460,90,80);
         janela.add(virg);
 
@@ -134,15 +147,66 @@ public class CalculadoraComInterface {
         });
 
         limpar.addActionListener(e ->{
-            visor.setText(visor.getText() + "");
+            visor.setText("");
+        });
+
+        virg.addActionListener(e->{
+            visor.setText(visor.getText() + ".");
+        });
+
+        soma.addActionListener(e-> {
+            ref.number1 = Double.parseDouble(visor.getText());
+            ref.oper = "+";
+            visor.setText("");
+        });
+
+        subtr.addActionListener(e->{
+            ref.number1 = Double.parseDouble(visor.getText());
+            ref.oper = "-";
+            visor.setText("");
+        });
+
+        mult.addActionListener(e-> {
+            ref.number1 = Double.parseDouble(visor.getText());
+            ref.oper = "X";
+            visor.setText("");
+        });
+        div.addActionListener(e-> {
+            ref.number1 = Double.parseDouble(visor.getText());
+            ref.oper = "÷";
+            visor.setText("");
+        });
+        igual.addActionListener(e->{
+            ref.number2 = Double.parseDouble(visor.getText());
+
+
+            if (ref.oper.equals("+")){
+                ref.resultado = ref.number1 + ref.number2;
+            }
+            else if (ref.oper.equals("-")) {
+                ref.resultado = ref.number1 - ref.number2;
+            }
+            else if (ref.oper.equals("X")) {
+                ref.resultado = ref.number1 * ref.number2;
+            }
+
+            else if (ref.oper.equals("÷")) {
+                if (ref.number2 < 1){
+                    visor.setText("Não é possivel dividir por 0");
+                }
+                else {
+                    ref.resultado = ref.number1 / ref.number2;
+                }
+
+            }
+
+            visor.setText(String.valueOf(ref.resultado));
         });
 
 
 
-
-
-
-
+        //operaçao de 3 numeros ou mais ( ex: 5*5/ 10 )
+        // botao apagar 1 numero
 
 
 

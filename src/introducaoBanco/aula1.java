@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public class aula1 {
     public static void main(String[] args){
-        String url = "jdbc:postgres://localhost:5432/lojad";
+        String url = "jdbc:postgresql://localhost:5432/lojad";
         try {
             Connection conn = DriverManager.getConnection(
                     url, "postgres", "fatec123*"

@@ -134,14 +134,8 @@ public class CalculadoraComInterface {
         });
 
         limpar.addActionListener(e ->{
-            visor.setText("");
+            visor.setText(visor.getText() + "");
         });
-
-        //para fazer a operaçao : quando clicar em algum botao de operaçao( + - x / )
-        // guardar o valor do visor em uma variavel e guardar a operaçao selecionada em outra
-        //para posteriormente usar para fazer a conta com a segunda variavel
-        //tentar colocar estrutura de repetiçao guardando varias variaveis enquanto visor for diferente de =
-
 
 
 

@@ -14,7 +14,7 @@ public class aula1 {
         //Cria objete de instrução SQL
         Statement stmt = conn.createStatement();
         stmt.execute(sql);//executa comando SQL
-        System.out.println("Tabeka criada");
+        System.out.println("Tabela criada");
         stmt.close();// fecha instrução SQL
     }
 
@@ -33,6 +33,36 @@ public class aula1 {
         ps.close();
     }
 
+    public static void consulta(Connection conn) throws SQLException {
+        //cria o comando SQL
+        String sql = "SELECT * FROM produtos ORDER BY nome";
+        Statement stmt = conn.createStatement();
+        //executa a consulta no banco e armazena o resultado
+        ResultSet rs = stmt.executeQuery(sql);
+        while( rs.next()){
+            int id = rs.getInt("id");
+            String nome = rs.getString("nome");
+            double preco = rs.getDouble("preco");
+            int estoque = rs.getInt("estoque");
+            // mostra os registros da consulta
+            System.out.printf("[%d] %s - R$ %.2f (estoque: %d )%n",id,nome,preco,estoque);
+        }
+    }
+
+    public static void remove(Connection conn, int id) throws SQLException {
+
+        String sql = "DELETE FROM produtos WHERE id = ? ";
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setInt(1, id);
+        int linhasAfetadas = ps.executeUpdate();
+        ps.close();
+        if (linhasAfetadas > 0){
+            System.out.println("Produto removido");
+        }
+        else System.out.println("ID não encontrado");
+
+    }
+
     public static void main(String[] args)  {
 
 
@@ -47,7 +77,9 @@ public class aula1 {
             System.out.println("Conexao com sucesso");
             // cria a tabela produto
             criarTabela(conn);
-            insert(conn, "mouse", 120, 3);
+            insert(conn, "placa de video", 1200, 32);
+            consulta(conn);
+            remove(conn);
         } catch (SQLException e) {
             System.out.println("Erro ao conectar com o banco " + e.getMessage());
         }

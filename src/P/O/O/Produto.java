@@ -1,6 +1,10 @@
 package P.O.O;
 
+import java.util.Scanner;
+
 public class Produto {
+    Scanner sc = new Scanner(System.in);
+    int compra = 0;
 
     //variaveis de instancia
     public String nome;
@@ -31,18 +35,24 @@ public class Produto {
     //metodos de instancia
 
     public void vender (){
-        if (this.qtdEstoque > 0){
-            this.qtdEstoque -= 1;
+        System.out.println("Informe a quantidade de produtos da compra: ");
+        compra = sc.nextInt();
+
+        if (this.qtdEstoque > 0 && this.qtdEstoque > compra){
+
+            this.qtdEstoque -= compra;
             System.out.println("Vendido");
         }
         else {
-            System.out.println("Produto dem estoque duficiente");
+            System.out.println("Produto sem estoque duficiente");
         }
 
     }
-
+    int repo = 0;
     public void repor(){
-        this.qtdEstoque ++;
+        System.out.println("Informe a quantidade de reposição: ");
+        repo = sc.nextInt();
+        this.qtdEstoque += repo;
         System.out.println("Estoque aumentado");
     }
 

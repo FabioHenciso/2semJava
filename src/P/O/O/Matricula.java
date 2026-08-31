@@ -9,7 +9,7 @@ public class Matricula {
     private Disciplina disciplina;
 
     public Matricula() {
-
+             this(0, LocalDateTime.now() , null, null);
     }
 
     public Matricula(int nro, LocalDateTime data, Aluno aluno, Disciplina disciplina) {

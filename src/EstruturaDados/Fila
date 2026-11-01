@@ -1,0 +1,176 @@
+
+import java.util.Queue;
+import java.util.ArrayDeque;
+import java.util.Stack;
+
+public class Fila {
+
+    // EXERCICIO 1 
+    public static <T> Queue<T> intercalarFilas(Queue<T> fila1, Queue<T> fila2) {
+
+        Queue<T> resultado = new ArrayDeque<>();
+
+        Queue<T> copia1 = new ArrayDeque<>(fila1);
+        Queue<T> copia2 = new ArrayDeque<>(fila2);
+
+        while (!copia1.isEmpty() || !copia2.isEmpty()) {
+
+            if (!copia1.isEmpty()) {
+                resultado.add(copia1.poll());
+            }
+
+            if (!copia2.isEmpty()) {
+                resultado.add(copia2.poll());
+            }
+        }
+
+        return resultado;
+    }
+
+
+    // EXERCICIO 2 
+    public static String inverterPalavras(String texto) {
+
+        Stack<Character> pilha = new Stack<>();
+        String resultado = "";
+
+        for (int i = 0; i < texto.length(); i++) {
+
+            char letra = texto.charAt(i);
+
+            if (!Character.isWhitespace(letra)) {
+
+                pilha.push(letra);
+
+            } else {
+
+                while (!pilha.isEmpty()) {
+                    resultado += pilha.pop();
+                }
+
+                resultado += letra;
+            }
+        }
+
+        // Desempilha a ultima palavra
+        while (!pilha.isEmpty()) {
+            resultado += pilha.pop();
+        }
+
+        return resultado;
+    }
+
+
+    // TRABALHO - PARTE 1 - VERIFICAR PARENTESES, COLCHETES E CHAVES
+
+    public static boolean verificarExpressao(String expressao) {
+
+        Stack<Character> pilha = new Stack<>();
+
+        for (int i = 0; i < expressao.length(); i++) {
+
+            char caractere = expressao.charAt(i);
+
+            // Verifica os simbolos de abertura
+            if (caractere == '(' ||
+                caractere == '[' ||
+                caractere == '{') {
+
+                pilha.push(caractere);
+
+            }
+
+            // Verifica os simbolos de fechamento
+            else if (caractere == ')' ||
+                     caractere == ']' ||
+                     caractere == '}') {
+
+                // Se nao existe abertura correspondente
+                if (pilha.isEmpty()) {
+                    return false;
+                }
+
+                char topo = pilha.pop();
+
+                // Verifica se os simbolos correspondem
+                if (caractere == ')' && topo != '(') {
+                    return false;
+                }
+
+                if (caractere == ']' && topo != '[') {
+                    return false;
+                }
+
+                if (caractere == '}' && topo != '{') {
+                    return false;
+                }
+            }
+        }
+
+        
+        return pilha.isEmpty();
+    }
+
+
+  
+    public static void main(String[] args) {
+
+       
+        Queue<Integer> fila1 = new ArrayDeque<>();
+        Queue<Integer> fila2 = new ArrayDeque<>();
+
+        fila1.add(10);
+        fila1.add(20);
+        fila1.add(30);
+
+        fila2.add(40);
+        fila2.add(50);
+        fila2.add(60);
+
+        System.out.println("EXERCICIO 1 - INTERCALAR FILAS");
+
+        System.out.println("Fila 1: " + fila1);
+        System.out.println("Fila 2: " + fila2);
+
+        Queue<Integer> filaResultado =
+                intercalarFilas(fila1, fila2);
+
+        System.out.println("Fila intercalada: " + filaResultado);
+
+
+        System.out.println("\nEXERCICIO 2 - INVERTER PALAVRAS");
+
+        String texto = "EXERCICIO MUITO COMPLICADO";
+
+        System.out.println("Texto original: " + texto);
+
+        String textoInvertido = inverterPalavras(texto);
+
+        System.out.println("Texto invertido: " + textoInvertido);
+
+
+        // TESTE DO TRABALHO PARTE 1
+        System.out.println("\nTRABALHO - PARTE 1");
+
+        String expressao1 = "(A + B) * [C - D]";
+        String expressao2 = "{A + [B * (C - D)]}";
+        String expressao3 = "(A + B]";
+        String expressao4 = "((A + B)";
+        String expressao5 = "{A + [B * (C - D)]}";
+
+        System.out.println(expressao1 + " -> " +
+                verificarExpressao(expressao1));
+
+        System.out.println(expressao2 + " -> " +
+                verificarExpressao(expressao2));
+
+        System.out.println(expressao3 + " -> " +
+                verificarExpressao(expressao3));
+
+        System.out.println(expressao4 + " -> " +
+                verificarExpressao(expressao4));
+
+        System.out.println(expressao5 + " -> " +
+                verificarExpressao(expressao5));
+    }
+}

@@ -5,6 +5,9 @@ import java.util.Stack;
 
 public class Fila {
 
+    //Fabio Henciso Lourenço
+    //João Paulo de Almeida Pereira
+
     // EXERCICIO 1 
     public static <T> Queue<T> intercalarFilas(Queue<T> fila1, Queue<T> fila2) {
 
